@@ -785,7 +785,12 @@
       let modalDraft = null;
 
       function emptyProfile(slotCount = 3) {
-        return { slots: Array.from({ length: slotCount }, () => null), silverTokenQuantity: 1 };
+        return {
+          slots: Array.from({ length: slotCount }, () => null),
+          silverTokenQuantity: 1,
+          jewelryMode: "silver-token",
+          plasmaPrices: Object.fromEntries(vocations.map(({ id }) => [id, { price: null }]))
+        };
       }
 
       function normalizeProfile(profile, slotCount = 3) {
@@ -830,6 +835,7 @@
           weapons: [{ id: 1, name: "Weapon 1", type: "sword", ...emptyProfile(3) }],
           itemPrices: {},
           goldTokenPrice: null,
+          silverTokenUnitPrice: null,
           plasmaVocation: "knight",
           nextWeaponId: 2
         };
@@ -958,8 +964,11 @@
             if (plasma?.price !== null && plasma?.price !== undefined) {
               hourly += plasma.price / plasmaDurationHours;
             }
-          } else if (state.silverTokenUnitPrice !== null) {
-            oneTime += state.silverTokenUnitPrice * profile.silverTokenQuantity;
+          } else {
+            const silverTokenPrice = Number(state.silverTokenUnitPrice);
+            if (state.silverTokenUnitPrice !== null && Number.isFinite(silverTokenPrice) && silverTokenPrice >= 0) {
+              oneTime += silverTokenPrice * profile.silverTokenQuantity;
+            }
           }
         });
         return { oneTime, hourly };
