@@ -396,9 +396,8 @@
     body { background: var(--paper); color: var(--ink); }
     .topbar, .simulator > .heading { display: none; }
     .simulator { width: min(100%, 680px); max-width: 680px; padding: 32px 16px 48px; }
-    .category-tabs { display: flex; gap: 8px; overflow-x: auto; padding: 0 0 16px; scrollbar-width: none; }
-    .category-tabs::-webkit-scrollbar { display: none; }
-    .category-tab { flex: 0 0 auto; min-height: 40px; padding: 0 16px; border: 0; border-radius: 22px; background: #32353d; color: #b7bbc4; font-weight: 600; }
+    .category-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 0 0 16px; }
+    .category-tab { min-width: 0; min-height: 40px; padding: 6px 10px; border: 0; border-radius: 22px; background: #32353d; color: #b7bbc4; font-weight: 600; line-height: 1.2; white-space: normal; }
     .category-tab[aria-selected="true"] { background: #356cf6; color: white; }
     .gear-panel { border: 1px solid #3a3d45; border-radius: 12px; background: #282a31; padding: 18px 22px; }
     .weapon-picker { display: flex; align-items: center; gap: 8px; margin: 0 0 14px; }
@@ -454,8 +453,8 @@
     .apply-button { border-radius: 8px; background: #356cf6; }
     @media (max-width: 560px) {
       .simulator { padding: 22px 14px 36px; }
-      .category-tabs { gap: 6px; margin-right: -14px; }
-      .category-tab { min-height: 38px; padding: 0 8px; font-size: 11px; }
+      .category-tabs { gap: 6px; margin-right: 0; }
+      .category-tab { min-height: 38px; padding: 5px 6px; font-size: 11px; }
       .gear-panel { padding: 15px 13px; }
       .token-settings { align-items: flex-start; flex-direction: column; padding: 13px; }
       .token-setting-fields { width: 100%; flex-direction: column; }
